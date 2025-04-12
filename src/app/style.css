@@ -1,10 +1,11 @@
-/* UH Logo for the navbar */
+/* Logo for the navbar */
 .logo{
     width: 35px;
 }
 
 .navbar{
-    background-color: #889677;
+    background-color: #71987D;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.2);
 }
 
 /* text color for the links in the navbar right side */
@@ -28,7 +29,7 @@
 
 /* burger icon in the navbar */
 .burger:hover{
-    background-color: rgb(94, 99, 90);
+    background-color: rgb(88, 126, 115);
     color: white;
 }
 
