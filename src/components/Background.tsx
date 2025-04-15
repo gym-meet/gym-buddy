@@ -55,7 +55,7 @@ const Background = () => (
     </Container>
 
     {/* messaging block */}
-    <Container fluid className="py-5 section3">
+    {/* <Container fluid className="py-5 section3">
       <div className="d-flex align-items-center gap-4 me-4">
         <Row className="fullwidth-row align-items-center me-3">
           <Col>
@@ -63,7 +63,7 @@ const Background = () => (
           </Col>
         </Row>
       </div>
-    </Container>
+    </Container> */}
   </>
 );
 

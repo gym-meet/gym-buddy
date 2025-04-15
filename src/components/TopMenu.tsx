@@ -15,7 +15,7 @@ const TopMenu = () => {
       {/* Top Navbar */}
       <Navbar className="navbar" expand="lg">
         <Container fluid className="d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center gap-4 ms-4">
+          <div className="d-flex align-items-center gap-4 ms-5 mt-4">
             <Button variant="outline-light" onClick={handleShow} className="border-0 burger">
               ☰
             </Button>
@@ -26,7 +26,7 @@ const TopMenu = () => {
           </div>
 
           {/* Right side: Nav Links + Toggle */}
-          <div className="d-flex align-items-center gap-4 me-4">
+          <div className="d-flex align-items-center gap-4 me-5 mt-4">
             <Nav className="d-flex align-items-center gap-4">
               <Nav.Link as={Link} href="/explore">Explore</Nav.Link>
               <Nav.Link as={Link} href="/signin">Sign In</Nav.Link>
@@ -36,7 +36,7 @@ const TopMenu = () => {
       </Navbar>
 
       {/* Offcanvas from the left */}
-      <Offcanvas show={showOffcanvas} onHide={handleClose} placement="start" backdrop={true} className="side-bar">
+      <Offcanvas show={showOffcanvas} onHide={handleClose} placement="start" className="side-bar">
         <Offcanvas.Header closeButton className="side-bar-close">
           <Offcanvas.Title className="burger-title">More Links</Offcanvas.Title>
         </Offcanvas.Header>

@@ -1,23 +1,25 @@
+
+
 /* Logo for the navbar */
 .logo{
     width: 35px;
 }
 
 .navbar{
-    background-color: #e9f5ec;
+    background-color: #49625e;
     font-size: 1.2rem;
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,.2);
+    /* box-shadow: 0 2px 3px 0 rgba(0,0,0,.2); */
     font-weight: 400;
     height: 4.5rem;
 }
 
 /* text color for the links in the navbar right side */
 .nav-link {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }
 
 .nav-link:hover {
-    color: #5c8379;
+    color: #7bada1;
     text-decoration: underline !important;
     text-underline-offset: 0.4rem;
 }
@@ -35,7 +37,7 @@
 /* burger icon in the navbar */
 .burger{
     /* background-color: rgb(88, 126, 115); */
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .burger:hover{
@@ -71,13 +73,13 @@
 
 /* container for the top of the page */
 .top-bg{
-    background-color: #F9AD76;
+    background-color: #49625e;
 }
 
 .text1 {
     text-align: left;
     font-size: 2.9rem;
-    margin-left: 10.2vw;
+    margin-left: 8.3vw;
     font-weight: 600;
     font-family: 'open sans', sans-serif;
     color: white;
@@ -89,7 +91,7 @@
     text-align: left;
     font-size: 1.5rem;
     margin-top: 2rem;
-    margin-left: 10.2vw;
+    margin-left: 8.3vw;
     font-weight: 400;
     line-height:35px;
     font-family: 'open sans', sans-serif;
@@ -98,17 +100,17 @@
 
 .signup-button {
     font-size: 1.1rem;
-    margin-left: 10.2vw;
-    margin-top: 0.7rem;
+    margin-left: 8.3vw;
+    margin-top: 1rem;
     padding: 0.8rem 2rem;
     border-radius: 2rem;
     font-weight: 400;
     letter-spacing: 0.05rem;
-    background-color: rgb(95, 105, 84);
+    background-color: rgb(119, 136, 102);
 }
 
 .signup-button:hover{
-    background-color: rgb(104, 125, 98);
+    background-color: rgb(130, 157, 118);
     color: white;
 }
 .signup-button:active{
@@ -117,14 +119,19 @@
 }
 
 .school-bg{
-    width: 100%;
-    height: 70vh;
+    border-radius: 2rem;
+    width: 95%;
+    height:65vh;
     object-fit: cover;
+    margin-top: 3rem; 
+    margin-bottom: 5rem; 
+    margin-left: 5rem; 
 }
 
 /* section for calendar */
 .section1{
     margin-top: 2rem;
+
     height: 70vh;
     display: flex;
     object-fit: cover;
@@ -170,7 +177,7 @@
     height: 70vh;
     display: flex;
     justify-content: center;
-    background-color: #d0cc96;
+    background-color: #49625e;  
 }
 
 /* section for messaging */
@@ -179,7 +186,8 @@
     height: 70vh;
     display: flex;
     justify-content: center;
-    background-color: #bab2b2;
+    background-color: rgb(194, 224, 195);
+    
 }
 
 
