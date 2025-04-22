@@ -10,7 +10,6 @@
     font-size: 1.2rem;
     /* box-shadow: 0 2px 3px 0 rgba(0,0,0,.2); */
     font-weight: 400;
-    height: 4.5rem;
 }
 
 /* text color for the links in the navbar right side */
@@ -28,6 +27,7 @@
 .nav-link2{
     color: black;
     margin-left: 1rem !important; 
+    
 
 }
 .nav-link2:hover{
@@ -38,6 +38,7 @@
 .burger{
     /* background-color: rgb(88, 126, 115); */
     color: rgb(255, 255, 255) !important;
+
 }
 
 .burger:hover{
