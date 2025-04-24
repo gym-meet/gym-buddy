@@ -1,75 +1,154 @@
 'use client';
 
-import React from 'react';
-import { CaretLeftFill, CaretRightFill } from 'react-bootstrap-icons';
-import { ChevronRight } from 'react-bootstrap-icons';
+import { useState, useMemo } from 'react';
+import { CaretLeftFill, CaretRightFill, ChatLeftDotsFill } from 'react-bootstrap-icons';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import { addMonths, subMonths } from 'date-fns';
 
-const SchedulePage = () => (
+const { daysInWeek } = require("date-fns/constants");
+const { daysInYear } = require("date-fns/constants");
+const { maxTime } = require("date-fns/constants");
 
-  <div className="calendar-app">
-    <div className="calendar">
-      <h1>Calendar</h1>
-      <div className="nav-date">
-        <h2 className="date">September,</h2>
-        <h2 className="year">2025</h2>
-        <div className="buttons">
-          <CaretLeftFill />
-          <CaretRightFill />
+//   return days;
+// };
+
+function SchedulePage() {
+  const [rawData, setRawData] = useState('');
+  const [formatTime, setFormatTime] = useState('');
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const handleInputChange = (e) => {
+    // allows only numbers
+    const input = e.target.value.replace(/\D/g, '');
+    setRawData(input);
+    if (input.length === 3 || input.length === 4) {
+      let hours = input.slice(0, input.length - 2);
+      let minutes = input.slice(-2);
+      if (hours.length === 1) hours = '0' + hours;
+      if (parseInt(hours, 10) < 24 && parseInt(minutes, 10) < 60) {
+        setFormatTime(`${hours}:${minutes}`);
+      } else {
+        setFormatTime('');
+      }
+    } else {
+      setFormatTime('');
+    }
+  };
+
+  const nextMonth = () => {
+    setCurrentDate(addMonths(currentDate, 1));
+  };
+  const prevMonth = () => {
+    setCurrentDate(subMonths(currentDate, 1));
+  };
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const calendar = useMemo(() => {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDay = new Date(year, month, 1).getDay();
+    const oldMonth = new Date(year, month, 0);
+    const oldDays = oldMonth.getDate();
+    const calendarDays = [];
+    for (let i = firstDay - 1; i >= 0; i--) {
+      calendarDays.push({
+        day: oldDays - i,
+        isCurrentMonth: false,
+        isNextMonth: false,
+      });
+    }
+
+    // for (let i = 0; i < firstDay; i++) {
+    //   calendarDays.push(null);
+    // }
+    for (let i = 1; i <= daysInMonth; i++) {
+      calendarDays.push({
+        day: i,
+        isCurrentMonth: true,
+        isNextMonth: false,
+      });
+    }
+    while (calendarDays.length < 35) {
+      calendarDays.push({
+        day: calendarDays.length - (firstDay + daysInMonth) + 1,
+        isCurrentMonth: false,
+        isNextMonth: true,
+      });
+    }
+    return calendarDays;
+  }, [year, month]);
+  return (
+    <div>
+      <h2>
+        {months[currentDate.getMonth()]}
+        {currentDate.getFullYear()}
+      </h2>
+      <button type="button" onClick={prevMonth}>Previous</button>
+      <button type="button" onClick={nextMonth}>Next</button>
+
+      <div style={{ marginTop: '20px' }}>
+        <label>Enter time: </label>
+        <input
+          type="text"
+          value={rawData}
+          onChange={handleInputChange}
+          maxLength={4}
+          placeholder="HH:MM"
+        />
+        {formatTime && (
+        <div>
+          Formatted Time:
+          {formatTime}
         </div>
+        )}
       </div>
-      <div className="weekdays">
-        <span>Sun</span>
-        <span>Mon</span>
-        <span>Tue</span>
-        <span>Thur</span>
-        <span>Fri</span>
-        <span>Sat</span>
-      </div>
-      <div className="days">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
-        <span>6</span>
-        <span>7</span>
-        <span>8</span>
-        <span>9</span>
-        <span>10</span>
-        <span>11</span>
-        <span>12</span>
-        <span>13</span>
-        <span>14</span>
-        <span>15</span>
-        <span>16</span>
-        <span>17</span>
-        <span>18</span>
-        <span>19</span>
-        <span>20</span>
-        <span>21</span>
-        <span>22</span>
-        <span>23</span>
-        <span>24</span>
-        <span>25</span>
-        <span>26</span>
-        <span>27</span>
-        <span>28</span>
-        <span>29</span>
-        <span>30</span>
-        <span>31</span>
+      <div
+        className="grid-container"
+      >
+        {calendar.map((item) => {
+          let monthType = 'prev';
+          if (item.isCurrentMonth) {
+            monthType = 'curr';
+          } else if (item.isNextMonth) {
+            monthType = 'next';
+          }
+          const key = `${year}-${month}-${monthType}-${item.day}`;
+          return (
+            <div
+              key={key}
+              className={`grid-item ${
+                (() => {
+                  if (item.isCurrentMonth) {
+                    return 'current-month';
+                  }
+                  if (item.isNextMonth) {
+                    return 'next-month';
+                  }
+                  return 'prev-month';
+                })()
+              }`}
+            >
+              {item.day}
+            </div>
+          );
+        })}
       </div>
     </div>
-    <div className="events">
-      <div className="event-popup">
-        <div className="time-input">
-          <div className="event-popup">Time</div>
-          <input type="number" name="hours" min={0} max={24} className="hours" />
-          <input type="number" name="minutes" min={0} max={60} className="minutes" />
-
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  );
+}
 
 export default SchedulePage;

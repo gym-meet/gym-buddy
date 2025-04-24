@@ -202,3 +202,48 @@
     border-radius: 1.5rem;
 } */
 
+.calendar-margin{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* grid-gap: 10px; */
+    padding: 0 20rem;
+    margin-top: 20px;
+    border-radius: 5rem;
+  }
+  
+  .grid-item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    text-align: 'center';
+    /* border-radius: 0.5rem; */
+    padding: 4rem;
+    border: 1px solid #eeeaea;
+    box-sizing: border-box;
+  }
+
+  .grid-item:hover {
+    background-color: #c7eae2;
+    box-shadow: 0rem 0rem 3rem 0.3rem rgba(168, 161, 130, 0.177);
+    transition: transform 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.current-month {
+    color: #000;
+    background: #fff;
+  }
+  
+  .prev-month,
+  .next-month {
+    color: #000000;
+    background: #f3f3f3;
+  }
