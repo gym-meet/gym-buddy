@@ -10,7 +10,6 @@
     font-size: 1.2rem;
     /* box-shadow: 0 2px 3px 0 rgba(0,0,0,.2); */
     font-weight: 400;
-    height: 4.5rem;
 }
 
 /* text color for the links in the navbar right side */
@@ -28,6 +27,7 @@
 .nav-link2{
     color: black;
     margin-left: 1rem !important; 
+    
 
 }
 .nav-link2:hover{
@@ -38,6 +38,7 @@
 .burger{
     /* background-color: rgb(88, 126, 115); */
     color: rgb(255, 255, 255) !important;
+
 }
 
 .burger:hover{
@@ -200,4 +201,101 @@
     padding: 0.5rem 1.09rem;
     border-radius: 1.5rem;
 } */
+ 
+/* 
+.calendar-margin{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    
+} */
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* grid-gap: 10px; */
+    padding: 1rem 30rem;
+    margin-top: 1.4rem;
+    margin-bottom: 4rem;
+  }
+  
+  .grid-item {
+    background-color: #f0f0f0;
+    text-align: center;
+    text-align: 'center';
+    padding: 4rem;
+    border: 0.02rem solid #eeeaea;
+    box-sizing: border-box;
+  }
+
+  .grid-item:hover {
+    background-color: #c7eae2;
+    transition: transform 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.current-month {
+    color: #000;
+    background: #fff;
+  }
+  
+  .prev-month,
+  .next-month {
+    color: #000000;
+    background: #f3f3f3;
+  }
+  
+/* 
+  .labelStyle{
+    margin-top: 20px;
+  } */
+
+  .calendar-schedule{
+    margin-top: 2rem;
+    display: flex;
+  }
+  .calendar-container {
+    flex-grow: 1;
+    min-width: 0;
+}
+  .box {
+    display: inline-block;
+    padding: 2rem 2rem;
+    width: 20rem;
+    height: 30rem;
+    border: 0.1rem solid #000000;
+    background: rgb(255, 255, 255);
+    margin-right: 100rem;
+    margin-top: 2.4rem;
+  }
+
+  .selected {
+    background-color: #c7eae2;
+    color: rgb(0, 0, 0);
+  }
+
+  /* month and year header */
+  .my-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+  }
+
+  .my-text span{
+    margin-left: 1rem;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between; /* Ensures even spacing between the day names */
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    margin-bottom: 1rem; /* Adds spacing between the header and the calendar grid */
+  }
+  
