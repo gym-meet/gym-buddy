@@ -1,36 +1,31 @@
 'use client';
 
-import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { Facebook, TwitterX, Pinterest, Instagram } from 'react-bootstrap-icons';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const FooterMenu = () => (
   <footer className="py-3">
     <Container>
       <Row>
         <Col>
-          <strong>NAVIGATION</strong>
+          NAVIGATION
           <hr />
-          <p>About Us</p>
-          <p>Campus Map</p>
+          <p>
+            <a
+              target="_blank"
+              href="https://manoa.hawaii.edu/studentlife/recreation/recreation-center/rules-and-policies/"
+              rel="noopener noreferrer"
+            >
+              Rules & Policies
+            </a>
+          </p>
+          <p><a target="_blank" href="https://map.hawaii.edu/manoa/" rel="noopener noreferrer">Campus Map</a></p>
         </Col>
         <Col>
-          CONNECT
+          GYM HOURS
           <hr />
-          <p>Sign Up</p>
-          <Nav className="me-auto">
-            <Nav.Link>
-              <Facebook />
-            </Nav.Link>
-            <Nav.Link>
-              <TwitterX />
-            </Nav.Link>
-            <Nav.Link>
-              <Pinterest />
-            </Nav.Link>
-            <Nav.Link>
-              <Instagram />
-            </Nav.Link>
-          </Nav>
+          <p>Mon-Thur | 6AM - 10:30PM</p>
+          <p>Fri | 6AM - 9PM</p>
+          <p>Sat-Sun | 11AM - 6PM</p>
         </Col>
       </Row>
     </Container>
