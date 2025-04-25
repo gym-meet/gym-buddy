@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Navbar, Container, Nav, Image, Offcanvas, Button } from 'react-bootstrap';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 const TopMenu = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -11,6 +11,10 @@ const TopMenu = () => {
 
   const handleClose = () => setShowOffcanvas(false);
   const handleShow = () => setShowOffcanvas(true);
+  const handleLogout = () => {
+    handleClose();
+    signOut({ callbackUrl: '/' });
+  };
 
   return (
     <>
@@ -57,7 +61,7 @@ const TopMenu = () => {
             <Nav.Link className="nav-link2" as={Link} href="/about" onClick={handleClose}>About Us</Nav.Link>
             <Nav.Link className="nav-link2" as={Link} href="/contact" onClick={handleClose}>Contact</Nav.Link>
             <Nav.Link className="nav-link2" as={Link} href="/faq" onClick={handleClose}>FAQ</Nav.Link>
-            <Nav.Link className="nav-link2" as={Link} href="/logout" onClick={handleClose}>Logout</Nav.Link>
+            <Nav.Link className="nav-link2" as="button" onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
