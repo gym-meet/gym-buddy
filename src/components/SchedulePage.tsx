@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { CaretLeftFill, CaretRightFill, ChatLeftDotsFill } from 'react-bootstrap-icons';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { CaretLeftFill, CaretRightFill } from 'react-bootstrap-icons';
+// import { Container, Row, Col, Form } from 'react-bootstrap';
 import { addMonths, subMonths } from 'date-fns';
 
 // const { daysInWeek } = require("date-fns/constants");
@@ -162,28 +162,6 @@ function SchedulePage() {
         )}
       </div> */}
       <div className="calendar-schedule">
-      {/* <Row className="calendar-header">
-        <Col>Sun</Col>
-      </Row>
-      <Row className="calendar-header">
-        <Col>Mon</Col>
-        </Row>
-        <Row className="calendar-header">
-        <Col>Tues</Col>
-        </Row>
-        <Row className="calendar-header">
-        <Col>Wed</Col>
-        </Row>
-        <Row className="calendar-header">
-        <Col>Thur</Col>
-        </Row>
-        <Row className="calendar-header">
-        <Col>Fri</Col>
-        </Row>
-        <Row className="calendar-header">
-        <Col>Sat</Col>
-        </Row> */}
-        {/* Calendar grid */}
         <div className="calendar-container">
           <div className="calendar-section">
 
