@@ -10,7 +10,11 @@ const FooterMenu = () => (
           NAVIGATION
           <hr />
           <p>
-            <a target="_blank" href="https://manoa.hawaii.edu/studentlife/recreation/recreation-center/rules-and-policies/" rel="noopener noreferrer">
+            <a
+              target="_blank"
+              href="https://manoa.hawaii.edu/studentlife/recreation/recreation-center/rules-and-policies/"
+              rel="noopener noreferrer"
+            >
               Rules & Policies
             </a>
           </p>
