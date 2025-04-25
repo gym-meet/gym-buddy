@@ -6,7 +6,7 @@ test.describe('Explore Page', () => {
     await page.goto('https://gym-buddy-five.vercel.app/explore'); // Use your deployed URL
 
     // Check if the page title is correct
-    await expect(page).toHaveTitle(/Find Your Gym Partner/);
+    await expect(page).toHaveTitle(/UH Gym Buddy/);
 
     // Ensure the header "Find Your Gym Partner" is present
     await expect(page.locator('h2')).toHaveText('Find Your Gym Partner');
