@@ -201,38 +201,36 @@
     padding: 0.5rem 1.09rem;
     border-radius: 1.5rem;
 } */
-
+ 
+/* 
 .calendar-margin{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     outline: none;
     
-}
+} */
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     /* grid-gap: 10px; */
-    padding: 0 20rem;
-    margin-top: 20px;
-    border-radius: 5rem;
+    padding: 1rem 30rem;
+    margin-top: 1.4rem;
+    margin-bottom: 4rem;
   }
   
   .grid-item {
     background-color: #f0f0f0;
-    padding: 20px;
     text-align: center;
     text-align: 'center';
-    /* border-radius: 0.5rem; */
     padding: 4rem;
-    border: 1px solid #eeeaea;
+    border: 0.02rem solid #eeeaea;
     box-sizing: border-box;
   }
 
   .grid-item:hover {
     background-color: #c7eae2;
-    box-shadow: 0rem 0rem 3rem 0.3rem rgba(168, 161, 130, 0.177);
     transition: transform 0.1s ease-in-out;
     cursor: pointer;
 }
@@ -247,3 +245,57 @@
     color: #000000;
     background: #f3f3f3;
   }
+  
+/* 
+  .labelStyle{
+    margin-top: 20px;
+  } */
+
+  .calendar-schedule{
+    margin-top: 2rem;
+    display: flex;
+  }
+  .calendar-container {
+    flex-grow: 1;
+    min-width: 0;
+}
+  .box {
+    display: inline-block;
+    padding: 2rem 2rem;
+    width: 20rem;
+    height: 30rem;
+    border: 0.1rem solid #000000;
+    background: rgb(255, 255, 255);
+    margin-right: 100rem;
+    margin-top: 2.4rem;
+  }
+
+  .selected {
+    background-color: #c7eae2;
+    color: rgb(0, 0, 0);
+  }
+
+  /* month and year header */
+  .my-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+  }
+
+  .my-text span{
+    margin-left: 1rem;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between; /* Ensures even spacing between the day names */
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    margin-bottom: 1rem; /* Adds spacing between the header and the calendar grid */
+  }
+  
