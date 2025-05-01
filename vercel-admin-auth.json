@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": "__Host-next-auth.csrf-token",
+      "value": "5752064ab25794c9f7d6798e78c94642326b48c1d4e9060ddb4c108e793d52ea%7C9021cf04c833a7f9abc3bbfbae3314e71278dcd26b93c686edd22ea72d73eb8d",
+      "domain": "gym-buddy-five.vercel.app",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__Secure-next-auth.callback-url",
+      "value": "https%3A%2F%2Fgym-buddy-five.vercel.app",
+      "domain": "gym-buddy-five.vercel.app",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://gym-buddy-five.vercel.app",
+      "localStorage": [
+        {
+          "name": "nextauth.message",
+          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1746061669}"
+        }
+      ]
+    }
+  ]
+}

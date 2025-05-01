@@ -47,6 +47,14 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/, // this tells Playwright to treat `*.setup.ts` files as setup scripts
+    },
+    {
+      name: 'default',
+      testMatch: /.*\.spec\.ts/, // your regular test files
+    },
   ],
 
   /* Run your local dev server before starting the tests */

@@ -54,6 +54,8 @@ const LoginComponent = () => {
           {error && <p className={styles.errorMessage}>{error}</p>}
 
           <input
+            id="email"
+            name="email"
             type="email"
             placeholder="Email"
             className={styles.inputField}
@@ -63,6 +65,8 @@ const LoginComponent = () => {
           />
 
           <input
+            id="password"
+            name="password"
             type="password"
             placeholder="Password"
             className={styles.inputField}
@@ -72,6 +76,7 @@ const LoginComponent = () => {
           />
 
           <button
+            id="login-button"
             type="submit"
             className={styles.loginButton}
             disabled={isLoading}
