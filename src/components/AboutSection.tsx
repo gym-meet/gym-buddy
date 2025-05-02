@@ -13,23 +13,25 @@ const AboutSection = () => (
 
           <div className="about-content">
             <p className="mb-3">
-              Welcome to our website! We are a passionate team dedicated to delivering high-quality
-              services and exceptional experiences. With years of expertise in our field, we strive to provide
-              innovative solutions tailored to meet your unique needs.
+              Welcome to Gym-Meet! Our goal is to connect University of Hawaii students from all different
+              majors with a common hobby: keeping fit. We realized that there are a lot of UHM students that
+              want to take advantage of the campus center facilities, including the gym, but are too intimidated
+              to go by themselves. Others are discouraged by their lack of experience, while others want to go
+              with friends, but their schedules do not match up. This is where our site comes in!
             </p>
 
             <p className="mb-3">
-              Our mission is to empower individuals and businesses by offering reliable, efficient, and user-
-              focused products. We believe in building strong relationships with our clients and continuously
-              improving our offerings. Thank you for visiting, and we look forward to working with you!
-            </p>
-
-            <p className="text-muted fst-italic small">
-              (Random blurb created with ChatGPT)
+              Here, you can create your own profile and customize it with your workout preferences. Link your
+              social media accounts and give everyone a short description about yourself for people to find,
+              then find people whose schedules align with yours and hit the gym! We hope to make the process of
+              finding gym buddies as simple and painless as possible, so you can meet new people and crush your
+              personal records with ease!
             </p>
 
             <p className="mt-4">
-              If this is your first time visiting our site and want to sign up or wish to log in, please click here:
+              If this is your first time visiting our site and want to sign up, click the Sign In button! For
+              more information, visit our FAQ page (you can also find the weekly gym hours and links to the
+              official campus center websites below).
             </p>
 
           </div>
