@@ -19,7 +19,7 @@ const TopMenu = () => {
   return (
     <>
       {/* Top Navbar */}
-      <Navbar className="navbar" expand="lg">
+      <Navbar className="navbar pb-4" expand="lg">
         <Container fluid className="d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center gap-4 ms-5 mt-4">
             <Button variant="outline-light" onClick={handleShow} className="border-0 burger">
