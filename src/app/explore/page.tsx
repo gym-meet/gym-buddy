@@ -53,7 +53,14 @@ const Explore = async () => {
         <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
           {users.length > 0 ? (
             users.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} />
+              <Col key={profile.id}>
+                <a
+                  href="/profile/$profile.id"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <ProfileCard key={profile.id} profile={profile} />
+                </a>
+              </Col>
             ))
           ) : (
             <Col>
