@@ -1,3 +1,5 @@
+/* eslint-disable import/first */
+export const dynamic = 'force-dynamic';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FunnelFill } from 'react-bootstrap-icons';
 import { prisma } from '@/lib/prisma';
