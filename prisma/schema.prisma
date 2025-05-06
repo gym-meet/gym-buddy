@@ -35,6 +35,7 @@ model User {
   types     String[]
   gender    String   @default("")
   experience String @default("")
+  username String  @default("guest") // or any default value
 }
 
 enum Condition {

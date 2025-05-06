@@ -2,10 +2,8 @@
 
 import NextAuth, { DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma'; // ← reuse your global client
 import bcrypt from 'bcrypt';
-
-const prisma = new PrismaClient();
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -29,8 +27,8 @@ const handler = NextAuth({
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+      async authorize(credentials: Record<'email' | 'password', string> | undefined) {
+        if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
 

@@ -1,3 +1,5 @@
+/* eslint-disable import/first */
+export const dynamic = 'force-dynamic';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FunnelFill } from 'react-bootstrap-icons';
 import { prisma } from '@/lib/prisma';
@@ -57,7 +59,7 @@ const Explore = async () => {
             ))
           ) : (
             <Col>
-              <p>No gym partners found. Be the first to sign up!</p>
+              <p>Log in to see potential gym partners!</p>
             </Col>
           )}
         </Row>

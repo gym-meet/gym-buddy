@@ -27,7 +27,7 @@ const TopMenu = () => {
             </Button>
             {/* Left side: Logo */}
             <Navbar.Brand as={Link} href="/home">
-              <Image src="/image.png" alt="Logo" fluid className="logo" />
+              <Image src="/image.png" alt="Logo" width="120" height="60" style={{ objectFit: 'contain' }} />
             </Navbar.Brand>
           </div>
 
