@@ -56,7 +56,7 @@ const SignupComponent = () => {
 
       // Sign in and redirect
       await signIn('credentials', {
-        callbackUrl: '/home',
+        callbackUrl: '/profile',
         email: data.email,
         password: data.password,
       });

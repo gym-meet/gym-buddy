@@ -57,7 +57,7 @@ const Explore = async () => {
             ))
           ) : (
             <Col>
-              <p>No gym partners found. Be the first to sign up!</p>
+              <p>Log in to see potential gym partners!</p>
             </Col>
           )}
         </Row>
