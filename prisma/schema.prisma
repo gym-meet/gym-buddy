@@ -36,6 +36,23 @@ model User {
   gender    String   @default("")
   experience String @default("")
   username String  @default("guest") // or any default value
+
+  friends   User[]  @relation("UserFriends")
+  friendsOf   User[]  @relation("UserFriends")
+
+  schedules  ScheduleEntry[]
+}
+
+model ScheduleEntry {
+  id         String   @id @default(uuid())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  date       DateTime
+  exercise   String
+  createdAt  DateTime @default(now())
+
+  @@index([date])
+  @@index([userId])
 }
 
 enum Condition {
