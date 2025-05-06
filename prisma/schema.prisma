@@ -1,65 +1,42 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  // for local development
-  // url      = env("DATABASE_URL")
-  // for Vercel
+  provider  = "postgresql"
   url       = env("POSTGRES_URL_NON_POOLING")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  phone     String?
-  instagram String   @default("")
-  twitter   String   @default("")
-  linkedIn  String   @default("")
-  days      String[]
-  types     String[]
-  gender    String   @default("")
-  experience String @default("")
-  username String  @default("guest") // or any default value
-
-  friends   User[]  @relation("UserFriends")
-  friendsOf   User[]  @relation("UserFriends")
-
-  schedules  ScheduleEntry[]
+  id                              Int             @id @default(autoincrement())
+  email                           String          @unique
+  password                        String
+  role                            Role            @default(USER)
+  days                            String[]
+  experience                      String          @default("")
+  gender                          String          @default("")
+  instagram                       String          @default("")
+  linkedIn                        String          @default("")
+  phone                           String?
+  twitter                         String          @default("")
+  types                           String[]
+  username                        String          @default("guest")
+  schedules                       ScheduleEntry[]
+  UserFriends_UserFriends_AToUser UserFriends[]   @relation("UserFriends_AToUser")
+  UserFriends_UserFriends_BToUser UserFriends[]   @relation("UserFriends_BToUser")
 }
 
 model ScheduleEntry {
-  id         String   @id @default(uuid())
-  userId     Int
-  user       User     @relation(fields: [userId], references: [id])
-  date       DateTime
-  exercise   String
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  userId    Int
+  date      DateTime
+  exercise  String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 
   @@index([date])
   @@index([userId])
-}
-
-enum Condition {
-  excellent
-  good
-  fair
-  poor
 }
 
 model Stuff {
@@ -68,4 +45,27 @@ model Stuff {
   quantity  Int
   condition Condition @default(good)
   owner     String
+}
+
+model UserFriends {
+  A                        Int
+  B                        Int
+  User_UserFriends_AToUser User @relation("UserFriends_AToUser", fields: [A], references: [id], onDelete: Cascade)
+  User_UserFriends_BToUser User @relation("UserFriends_BToUser", fields: [B], references: [id], onDelete: Cascade)
+
+  @@id([A, B], map: "_UserFriends_AB_pkey")
+  @@index([B], map: "_UserFriends_B_index")
+  @@map("_UserFriends")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Condition {
+  excellent
+  good
+  fair
+  poor
 }
