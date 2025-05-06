@@ -19,7 +19,7 @@ const TopMenu = () => {
   return (
     <>
       {/* Top Navbar */}
-      <Navbar className="navbar" expand="lg">
+      <Navbar className="navbar pb-4" expand="lg">
         <Container fluid className="d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center gap-4 ms-5 mt-4">
             <Button variant="outline-light" onClick={handleShow} className="border-0 burger">
@@ -27,7 +27,7 @@ const TopMenu = () => {
             </Button>
             {/* Left side: Logo */}
             <Navbar.Brand as={Link} href="/home">
-              <Image src="/image.png" alt="Logo" fluid className="logo" />
+              <Image src="/image.png" alt="Logo" width="120" height="60" style={{ objectFit: 'contain' }} />
             </Navbar.Brand>
           </div>
 
