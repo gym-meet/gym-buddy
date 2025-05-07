@@ -4,12 +4,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { FunnelFill } from 'react-bootstrap-icons';
 import { prisma } from '@/lib/prisma';
 import { ProfileCardData } from '@/lib/ProfileCardData';
+import { getServerSession } from 'next-auth';
+import NextAuthOptions from '@/lib/authOptions';
 import TopMenu from '../../components/TopMenu';
 import FooterMenu from '../../components/FooterMenu';
 import ProfileCard from '../../components/ProfileCard';
 import '../style.css';
 
-// Fetch users from the database
 async function getUsers() {
   try {
     const users = await prisma.user.findMany({
@@ -33,11 +34,54 @@ async function getUsers() {
   }
 }
 
+async function getUserFriends(userId: number) {
+  try {
+    const userWithFriends = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        UserFriends_UserFriends_AToUser: {
+          select: { B: true },
+        },
+        UserFriends_UserFriends_BToUser: {
+          select: { A: true },
+        },
+      },
+    });
+
+    if (!userWithFriends) return [];
+
+    const friendsA = userWithFriends.UserFriends_UserFriends_AToUser.map(f => f.B);
+    const friendsB = userWithFriends.UserFriends_UserFriends_BToUser.map(f => f.A);
+
+    // Combine both arrays to get all friend IDs
+    return [...friendsA, ...friendsB];
+  } catch (error) {
+    console.error('Error fetching user friends:', error);
+    return [];
+  }
+}
+
 const Explore = async () => {
+  const session = await getServerSession(NextAuthOptions);
   const users = await getUsers();
 
+  let currentUserId = 0;
+  let userFriendIds: number[] = [];
+
+  if (session?.user?.email) {
+    const currentUser = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { id: true },
+    });
+
+    if (currentUser) {
+      currentUserId = currentUser.id;
+      userFriendIds = await getUserFriends(currentUserId);
+    }
+  }
+
   return (
-    <main className="bg-light min-vh-100">
+    <main className="bg-light">
       <TopMenu />
 
       <Container className="py-5">
@@ -55,7 +99,12 @@ const Explore = async () => {
         <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
           {users.length > 0 ? (
             users.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} />
+              <ProfileCard
+                key={profile.id}
+                profile={profile}
+                currentUserId={currentUserId}
+                isFriend={userFriendIds.includes(profile.id)}
+              />
             ))
           ) : (
             <Col>

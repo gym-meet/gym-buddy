@@ -1,24 +1,24 @@
 'use client';
 
-import { Card, Col, Badge } from 'react-bootstrap';
+import { useState } from 'react';
+import { Card, Col, Badge, Button } from 'react-bootstrap';
+import { PersonAdd, PersonDash } from 'react-bootstrap-icons';
 import { ProfileCardData } from '@/lib/ProfileCardData';
 import TooltipImage from './TooltipImage';
 
-const ProfileCard = ({ profile }: { profile: ProfileCardData }) => {
+const ProfileCard = ({
+  profile,
+  currentUserId,
+  isFriend,
+}: {
+  profile: ProfileCardData;
+  currentUserId: number;
+  isFriend: boolean;
+}) => {
+  const [isUserFriend, setIsUserFriend] = useState(isFriend);
+  const [isLoading, setIsLoading] = useState(false);
   // Generate display name from email (before the @ symbol)
   const displayName = profile.email.split('@')[0];
-
-  // Hardcoded bio for everyone
-  const bio = 'Looking forward to meeting new gym buddies!';
-
-  // (Temporarily) chooses random workout
-  const getRandomWorkout = () => {
-    if (profile.types && profile.types.length > 0) {
-      const randomIndex = Math.floor(Math.random() * profile.types.length);
-      return profile.types[randomIndex];
-    }
-    return 'None';
-  };
 
   // Convert database days format to display format
   const convertDaysToSchedule = (days: string[]) => {
@@ -38,6 +38,36 @@ const ProfileCard = ({ profile }: { profile: ProfileCardData }) => {
   // Generate schedule display from user's days
   const schedule = convertDaysToSchedule(profile.days);
 
+  const handleFriendAction = async () => {
+    if (profile.id === currentUserId || currentUserId === 0) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const endpoint = isUserFriend ? '/api/friends/remove' : '/api/friends/add';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          friendId: profile.id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update friend status');
+      }
+
+      setIsUserFriend(!isUserFriend);
+    } catch (error) {
+      console.error('Error updating friend status:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Col>
       <Card className="h-100 border-0 rounded-4 overflow-hidden">
@@ -50,7 +80,25 @@ const ProfileCard = ({ profile }: { profile: ProfileCardData }) => {
             }}
           />
 
-          {/* Card content - moved outside the background div */}
+          {currentUserId !== profile.id && currentUserId !== 0 && (
+            <div className="position-absolute top-0 end-0 m-2">
+              <Button
+                variant="link"
+                className="p-0 text-light"
+                onClick={handleFriendAction}
+                disabled={isLoading}
+                title={isUserFriend ? 'Remove Gym Buddy' : 'Add Gym Buddy'}
+              >
+                {isUserFriend ? (
+                  <PersonDash size={24} className="text-danger" />
+                ) : (
+                  <PersonAdd size={24} />
+                )}
+              </Button>
+            </div>
+          )}
+
+          {/* Card content */}
           <div className="px-3" style={{ marginTop: '-60px' }}>
             <div className="d-flex mb-3">
               <TooltipImage
@@ -64,27 +112,28 @@ const ProfileCard = ({ profile }: { profile: ProfileCardData }) => {
                 <h5 className="mb-0 fw-bold text-white">
                   {displayName}
                 </h5>
-                <Badge
-                  pill
-                  bg="light"
-                  text="dark"
-                  className="mt-1 border"
-                  style={{
-                    width: '100px',
-                  }}
-                >
-                  {profile.experience}
-                </Badge>
+                {isUserFriend && (
+                  <Badge
+                    pill
+                    bg="success"
+                    text="light"
+                    className="mt-1 border"
+                  >
+                    Buddies!
+                  </Badge>
+                )}
               </div>
             </div>
 
-            <p className="text-muted small mb-3">{bio}</p>
+            <p className="text-muted small mb-3">
+              {profile.experience || 'Looking forward to meeting new gym buddies!'}
+            </p>
 
             <div className="mb-3">
               <div className="d-flex align-items-center mb-2">
                 <div className="me-2 text-muted small fw-bold">NEXT:</div>
                 <Badge bg="light" text="dark" className="border border-light-subtle py-1 px-2">
-                  {getRandomWorkout()}
+                  {profile.types[0]}
                 </Badge>
               </div>
 

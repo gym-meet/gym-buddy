@@ -3,7 +3,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 
 const FooterMenu = () => (
-  <footer className="py-3">
+  <footer className="bg-white py-3 pt-4">
     <Container>
       <Row>
         <Col>
