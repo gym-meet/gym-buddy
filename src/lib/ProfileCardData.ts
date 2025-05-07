@@ -9,4 +9,5 @@ export type ProfileCardData = {
   types: string[];
   gender: string;
   experience: string;
+  friendIds?: number[];
 };
