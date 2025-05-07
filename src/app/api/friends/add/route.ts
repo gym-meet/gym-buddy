@@ -8,12 +8,10 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(NextAuthOptions);
 
-    // Check if user is authenticated
     if (!session || !session.user?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get the request body
     const body = await request.json();
     const { friendId } = body;
 
@@ -21,7 +19,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Friend ID is required' }, { status: 400 });
     }
 
-    // Get current user
     const currentUser = await prisma.user.findUnique({
       where: { email: session.user.email },
     });
@@ -30,7 +27,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Check if friendId is valid
     const friend = await prisma.user.findUnique({
       where: { id: friendId },
     });
@@ -45,28 +41,33 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if already friends
-    const alreadyFriends = await prisma.user.findFirst({
+    const existingFriendship = await prisma.userFriends.findUnique({
       where: {
-        id: currentUser.id,
-        friends: {
-          some: {
-            id: friendId,
-          },
+        A_B: {
+          A: currentUser.id,
+          B: friendId,
         },
       },
     });
 
-    if (alreadyFriends) {
+    const reverseExistingFriendship = await prisma.userFriends.findUnique({
+      where: {
+        A_B: {
+          A: friendId,
+          B: currentUser.id,
+        },
+      },
+    });
+
+    if (existingFriendship || reverseExistingFriendship) {
       return NextResponse.json({ message: 'Already friends' }, { status: 200 });
     }
 
-    // Add the friend relationship
-    await prisma.user.update({
-      where: { id: currentUser.id },
+    // Add the friendship
+    await prisma.userFriends.create({
       data: {
-        friends: {
-          connect: { id: friendId },
-        },
+        A: currentUser.id,
+        B: friendId,
       },
     });
 

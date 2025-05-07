@@ -7,13 +7,11 @@ import { prisma } from '@/lib/prisma';
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(NextAuthOptions);
-    
-    // Check if user is authenticated
+
     if (!session || !session.user?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get the request body
     const body = await request.json();
     const { friendId } = body;
 
@@ -39,31 +37,53 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Friend not found' }, { status: 404 });
     }
 
-    // Check if they are actually friends
-    const areFriends = await prisma.user.findFirst({
+    // Check direct friendship (A -> B)
+    const directFriendship = await prisma.userFriends.findUnique({
       where: {
-        id: currentUser.id,
-        friends: {
-          some: {
-            id: friendId,
-          },
+        A_B: {
+          A: currentUser.id,
+          B: friendId,
         },
       },
     });
 
-    if (!areFriends) {
+    // Check reverse friendship (B -> A)
+    const reverseFriendship = await prisma.userFriends.findUnique({
+      where: {
+        A_B: {
+          A: friendId,
+          B: currentUser.id,
+        },
+      },
+    });
+
+    // If no friendship exists in either direction
+    if (!directFriendship && !reverseFriendship) {
       return NextResponse.json({ message: 'Not friends' }, { status: 200 });
     }
 
-    // Remove the friend relationship
-    await prisma.user.update({
-      where: { id: currentUser.id },
-      data: {
-        friends: {
-          disconnect: { id: friendId },
+    // Remove friendship
+    if (directFriendship) {
+      await prisma.userFriends.delete({
+        where: {
+          A_B: {
+            A: currentUser.id,
+            B: friendId,
+          },
         },
-      },
-    });
+      });
+    }
+
+    if (reverseFriendship) {
+      await prisma.userFriends.delete({
+        where: {
+          A_B: {
+            A: friendId,
+            B: currentUser.id,
+          },
+        },
+      });
+    }
 
     return NextResponse.json({ message: 'Friend removed successfully' }, { status: 200 });
   } catch (error) {

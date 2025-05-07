@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { Card, Col, Badge, Button } from 'react-bootstrap';
-import { PlusCircleFill, CheckCircleFill } from 'react-bootstrap-icons';
+import { PersonAdd, PersonDash } from 'react-bootstrap-icons';
 import { ProfileCardData } from '@/lib/ProfileCardData';
 import TooltipImage from './TooltipImage';
 
 const ProfileCard = ({
   profile,
   currentUserId,
-  isFriend 
+  isFriend,
 }: {
   profile: ProfileCardData;
   currentUserId: number;
@@ -19,15 +19,6 @@ const ProfileCard = ({
   const [isLoading, setIsLoading] = useState(false);
   // Generate display name from email (before the @ symbol)
   const displayName = profile.email.split('@')[0];
-
-  // (Temporarily) chooses random workout
-  const getRandomWorkout = () => {
-    if (profile.types && profile.types.length > 0) {
-      const randomIndex = Math.floor(Math.random() * profile.types.length);
-      return profile.types[randomIndex];
-    }
-    return 'None';
-  };
 
   // Convert database days format to display format
   const convertDaysToSchedule = (days: string[]) => {
@@ -48,7 +39,7 @@ const ProfileCard = ({
   const schedule = convertDaysToSchedule(profile.days);
 
   const handleFriendAction = async () => {
-    if (profile.id === currentUserId) {
+    if (profile.id === currentUserId || currentUserId === 0) {
       return;
     }
 
@@ -61,7 +52,7 @@ const ProfileCard = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          friendId: profile.id
+          friendId: profile.id,
         }),
       });
 
@@ -89,19 +80,19 @@ const ProfileCard = ({
             }}
           />
 
-          {currentUserId !== profile.id && (
+          {currentUserId !== profile.id && currentUserId !== 0 && (
             <div className="position-absolute top-0 end-0 m-2">
               <Button
                 variant="link"
                 className="p-0 text-light"
                 onClick={handleFriendAction}
                 disabled={isLoading}
-                title={isUserFriend ? 'Buddies!' : 'Add Gym Buddy'}
+                title={isUserFriend ? 'Remove Gym Buddy' : 'Add Gym Buddy'}
               >
                 {isUserFriend ? (
-                  <CheckCircleFill size={24} className="text-success" />
+                  <PersonDash size={24} className="text-danger" />
                 ) : (
-                  <PlusCircleFill size={24} />
+                  <PersonAdd size={24} />
                 )}
               </Button>
             </div>
@@ -121,17 +112,16 @@ const ProfileCard = ({
                 <h5 className="mb-0 fw-bold text-white">
                   {displayName}
                 </h5>
-                {/* <Badge
-                  pill
-                  bg="light"
-                  text="dark"
-                  className="mt-1 border"
-                  style={{
-                    width: '100px',
-                  }}
-                >
-                  {profile.experience}
-                </Badge> */}
+                {isUserFriend && (
+                  <Badge
+                    pill
+                    bg="success"
+                    text="light"
+                    className="mt-1 border"
+                  >
+                    Buddies!
+                  </Badge>
+                )}
               </div>
             </div>
 
@@ -143,7 +133,7 @@ const ProfileCard = ({
               <div className="d-flex align-items-center mb-2">
                 <div className="me-2 text-muted small fw-bold">NEXT:</div>
                 <Badge bg="light" text="dark" className="border border-light-subtle py-1 px-2">
-                  {getRandomWorkout()}
+                  {profile.types[0]}
                 </Badge>
               </div>
 
