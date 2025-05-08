@@ -56,8 +56,8 @@ const Explore = async () => {
             users.map((profile) => (
               // Link dynamic ID for each profile card
               <Link
-                href={`/profile/${users.id}`}
-                key={users.id}
+                href={`/profile/${profile.id}`}
+                key={profile.id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <ProfileCard key={profile.id} profile={profile} />
