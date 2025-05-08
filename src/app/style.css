@@ -1,8 +1,5 @@
-
-
-/* Logo for the navbar */
 .logo{
-    width: 35px;
+  height:3.43rem;
 }
 
 .navbar{
@@ -18,7 +15,7 @@
 }
 
 .nav-link:hover {
-    color: #7bada1;
+    color: #bbdcd4;
     text-decoration: underline !important;
     text-underline-offset: 0.4rem;
 }
@@ -31,23 +28,29 @@
 
 }
 .nav-link2:hover{
-    color:rgb(120, 126, 121);
+    color:rgb(90, 104, 92);
+}
+
+.nav-icons{
+  margin-right: 0.75rem;
+}
+.nav-icons2{
+  margin-left: 0.7rem;
 }
 
 /* burger icon in the navbar */
 .burger{
-    /* background-color: rgb(88, 126, 115); */
     color: rgb(255, 255, 255) !important;
 
 }
 
 .burger:hover{
-    background-color: #b9cec8b1;
-    color: black !important;
+    background-color: #ddf3ecb1;
+    color: rgba(0, 0, 0, 0.605) !important;
 }
 
 .burger:active{
-    background-color: rgb(178, 200, 187) !important;
+    background-color: rgb(183, 221, 199) !important;
 }
 
 /* offcanvas */
@@ -55,6 +58,7 @@
     width:22rem !important;
     background-color: rgb(244, 248, 241);
     border-radius: 0 0.6rem 0.6rem 0;
+    font-size: 1.06rem;
 }
 
 /* .offcanvas-backdrop{
@@ -64,8 +68,8 @@
 
 /* close button for burger */
 .side-bar-close{
-    margin-right: 1.2rem;
-    margin-top: 0.5rem;
+    margin-right: 1.8rem;
+    margin-top: 2.5rem;
 }
 
 .burger-title{
