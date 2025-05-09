@@ -5,13 +5,14 @@ const HeroSection = () => (
   <section className="hero-section py-4">
     <Container>
       <Row className="align-items-center">
-        <Col lg={6} className="mb-4 mb-lg-0">
-          {/* <Image
-            src="/api/placeholder/1920/1080"
-            alt="Find your gym buddy"
-            className="img-fluid rounded shadow"
-          /> */}
-          <Image src="/school.png" alt="School background" fluid className="school-bg" />
+        <Col lg={6} className="mb-4 mb-lg-0 d-flex justify-content-start">
+          <Image
+            src="/school.png"
+            alt="School background"
+            fluid
+            className="school-bg img-fluid rounded shadow"
+            style={{ height: '337px', width: '600px', marginLeft: '10px' }}
+          />
         </Col>
         <Col lg={6} className="text-center">
           <h1 className="display-4 fw-bold">Find your next gym buddy!</h1>
