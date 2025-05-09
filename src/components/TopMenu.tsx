@@ -44,12 +44,10 @@ const TopMenu = () => {
             <Nav className="d-flex align-items-center gap-4">
               <Nav.Link as={Link} href="/explore">Explore</Nav.Link>
               {session ? (
-                // If the user is signed in, show the profile icon
                 <Nav.Link as={Link} href="/profile">
                   <i className="bi bi-person-circle" style={{ fontSize: '1.5rem' }} />
                 </Nav.Link>
               ) : (
-                // If the user is not signed in, show the "Sign In" link
                 <Nav.Link as={Link} href="/auth/signin">Sign In</Nav.Link>
               )}
             </Nav>
@@ -68,19 +66,28 @@ const TopMenu = () => {
               <HouseDoorFill className="nav-icons" />
               Home
             </Nav.Link>
-            <Nav.Link className="nav-link2" as={Link} href="/profile" onClick={handleClose}>
-              <PersonFill className="nav-icons" />
-              Profile
-            </Nav.Link>
-            <Nav.Link className="nav-link2" as={Link} href="/schedule" onClick={handleClose}>
-              Schedule
-            </Nav.Link>
+
+            {session && (
+              <>
+                <Nav.Link className="nav-link2" as={Link} href="/profile" onClick={handleClose}>
+                  <PersonFill className="nav-icons" />
+                  Profile
+                </Nav.Link>
+                <Nav.Link className="nav-link2" as={Link} href="/schedule" onClick={handleClose}>
+                  Schedule
+                </Nav.Link>
+              </>
+            )}
+
             <Nav.Link className="nav-link2" as={Link} href="/faq" onClick={handleClose}>
               FAQ
             </Nav.Link>
-            <Nav.Link className="nav-link2" as="button" onClick={handleLogout}>
-              Logout
-            </Nav.Link>
+
+            {session && (
+              <Nav.Link className="nav-link2" as="button" onClick={handleLogout}>
+                Logout
+              </Nav.Link>
+            )}
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
