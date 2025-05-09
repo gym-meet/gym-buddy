@@ -2,6 +2,25 @@
   height:3.43rem;
 }
 
+.ig{
+  height:1.2rem;
+  width: 1.2rem;
+}
+
+.footer{
+  color: rgb(70, 70, 70);
+  text-decoration: none;
+}
+
+.footer p{
+  color:black;
+  font-size: 1.05rem;
+}
+
+.footer:hover{
+  color:#000000
+}
+
 .navbar{
     background-color: #49625e;
     font-size: 1.2rem;
