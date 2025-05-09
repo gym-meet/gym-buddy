@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 
 const HeroSection = () => (
   <section className="hero-section py-4">
@@ -11,13 +11,7 @@ const HeroSection = () => (
             alt="Find your gym buddy"
             className="img-fluid rounded shadow"
           /> */}
-          <iframe
-            src="https://www.youtube.com/embed/lAuAWGu2us0?si=HH4d3hNLLS0E3omO"
-            title="YouTube video player"
-            className="img-fluid rounded shadow"
-            style={{ width: '100%', height: '400px' }}
-            allowFullScreen
-          />
+          <Image src="/school.png" alt="School background" fluid className="school-bg" />
         </Col>
         <Col lg={6} className="text-center">
           <h1 className="display-4 fw-bold">Find your next gym buddy!</h1>
