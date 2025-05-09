@@ -2,7 +2,7 @@
 
 import NextAuth, { DefaultSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '@/lib/prisma'; // ← reuse your global client
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 
 declare module 'next-auth' {
