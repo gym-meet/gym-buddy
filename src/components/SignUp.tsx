@@ -1,12 +1,12 @@
 'use client';
 
-// components/SignupComponent.js
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { createUser } from '@/lib/dbActions';
+import { useRouter } from 'next/navigation';
 import styles from './SignupComponent.module.css';
 
 type SignUpForm = {
@@ -18,6 +18,8 @@ type SignUpForm = {
 const SignupComponent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+
+  const router = useRouter();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -54,12 +56,19 @@ const SignupComponent = () => {
       // Create user in the database
       await createUser(data);
 
-      // Sign in and redirect
-      await signIn('credentials', {
-        callbackUrl: '/profile',
+      // Sign in and redirect client-side
+      const result = await signIn('credentials', {
+        redirect: false,
         email: data.email,
         password: data.password,
       });
+
+      if (result?.ok) {
+        router.push('/profile');
+      } else {
+        setSubmitError('Sign-in failed. Please check your credentials.');
+        setIsSubmitting(false);
+      }
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'An error occurred during signup');
       setIsSubmitting(false);
