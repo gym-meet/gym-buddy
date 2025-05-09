@@ -1,44 +1,54 @@
+// tests/profile-availability.spec.ts
 import { test, expect } from '@playwright/test';
+import { ProfilePage } from './page-objects/ProfilePage';
 
-test.use({
-  storageState: 'admin-auth.json',
-});
+test.describe('Profile Page Availability', () => {
+  test.use({ storageState: 'tests/vercel-admin-auth.json' });
 
-test.describe('Profile Page Tests', () => {
-  test('Profile page is available and form operates with legal inputs', async ({ page }) => {
-    await page.goto('https://gym-buddy-five.vercel.app/profile');
+  test('admin can fill and save profile form', async ({ page }) => {
+    const profilePage = new ProfilePage(page);
 
-    // 1. Page loads with heading
-    await expect(page.getByRole('heading', { name: 'My Profile' })).toBeVisible();
+    await profilePage.goto();
 
-    // 2. Fill out account info
-    // await page.getByPlaceholder('Username').fill('testuser');
-    // await page.getByPlaceholder('New Password (optional)').fill('securePassword123');
+    // Fill in the form
+    await profilePage.fillProfileForm({
+      changeUsername: 'Admin1',
+      newPassword: 'Waiobruno21!',
+      email: 'admin@hawaii.edu',
+      phone: '8084550943',
+      instagram: 'admins',
+      twitter: 'admin',
+      linkedin: 'linkedin.com',
+      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      types: ['Running', 'Mixed', 'Free Weights', 'Machines', 'Calisthenics'],
+      gender: 'Male',
+      fitnessDescription: 'Hi my name is admin and I workout.',
+    });
 
-    // 3. Fill out contact info
-    await page.getByPlaceholder('Email Address').fill('test@example.com');
-    await page.getByPlaceholder('Phone Number').fill('8081234567');
-    await page.getByPlaceholder('Instagram Username').fill('test_insta');
-    await page.getByPlaceholder('Twitter Handle').fill('test_twitter');
-    await page.getByPlaceholder('LinkedIn Profile URL').fill('https://linkedin.com/in/test');
+    await profilePage.saveProfile();
 
-    // 4. Toggle some preferred days
-    await page.getByLabel('Monday').check();
-    await page.getByLabel('Friday').check();
+    // ✅ Add a success message check (adjust to your actual app)
+    // Click Save
+    await page.getByRole('button', { name: 'Save Profile' }).click();
+    console.log('✅ Clicked Save Profile');
 
-    // 5. Select workout types
-    await page.getByLabel('Running').check();
-    await page.getByLabel('Free Weights').check();
+    await page.waitForTimeout(5000); // Wait 5 seconds to allow the banner to appear
 
-    // 6. Select gender
-    await page.getByLabel('Gender').selectOption('Female');
+    await page.screenshot({ path: 'banner-check.png', fullPage: true });
 
-    // 7. Enter experience
-    await page.getByLabel(/fitness experience/i).fill('Been training for 2 years regularly.');
+    console.log('✅ Took a screenshot after saving');
 
-    // 8. Submit the form
-    await page.getByRole('button', { name: /save profile/i }).click();
+    // Screenshot right after clicking Save
+    await page.screenshot({ path: 'after-save-click.png', fullPage: true });
 
-    // Optionally, expect a toast or console message if you hook it up later
+    // Look for the success banner again
+    const successBanner = page.locator('div.alert.alert-success');
+
+    // NEW: Wait up to 30 seconds for the banner to appear
+    await expect(successBanner).toBeVisible({ timeout: 30000 });
+
+    // Log the text (for confirmation)
+    const bannerText = await successBanner.textContent();
+    console.log('✅ Banner appeared with text:', bannerText);
   });
 });
