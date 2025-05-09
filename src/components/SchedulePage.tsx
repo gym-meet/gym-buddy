@@ -2,16 +2,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { CaretLeftFill, CaretRightFill } from 'react-bootstrap-icons';
-// import { Container, Row, Col, Form } from 'react-bootstrap';
 import { addMonths, subMonths } from 'date-fns';
-
-// const { daysInWeek } = require("date-fns/constants");
-// const { daysInYear } = require("date-fns/constants");
-// const { maxTime } = require("date-fns/constants");
+import { Container } from 'react-bootstrap';
 
 function SchedulePage() {
-  // const [rawData, setRawData] = useState('');
-  // const [formatTime, setFormatTime] = useState('');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<{ year: number; month: number; day: number } | null>(null);
   const sampleEvents = {
@@ -64,23 +58,6 @@ function SchedulePage() {
     };
     setEvents(sampleEvent);
   }, []);
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   // removes non-digit characters
-  //   const input = e.target.value.replace(/\D/g, '');
-  //   setRawData(input);
-  //   if (input.length === 3 || input.length === 4) {
-  //     let hours = input.slice(0, input.length - 2);
-  //     const minutes = input.slice(-2);
-  //     if (hours.length === 1) hours = `0${hours}`;
-  //     if (parseInt(hours, 10) < 24 && parseInt(minutes, 10) < 60) {
-  //       setFormatTime(`${hours}:${minutes}`);
-  //     } else {
-  //       setFormatTime('');
-  //     }
-  //   } else {
-  //     setFormatTime('');
-  //   }
-  // };
 
   const nextMonth = () => {
     setCurrentDate(addMonths(currentDate, 1));
@@ -137,34 +114,17 @@ function SchedulePage() {
   }, [year, month]);
   return (
     // Month and year display + the buttons to change the month
-    <div>
-      <h2 className="my-text">
-        <span>{months[currentDate.getMonth()]}</span>
-        <span>{currentDate.getFullYear()}</span>
+    <Container className="schedule-container">
+      <h2 className="my-text mt-6 mb-4">
+        {months[currentDate.getMonth()]}
+        {' '}
+        {currentDate.getFullYear()}
       </h2>
-      <button type="button" onClick={prevMonth}><CaretLeftFill /></button>
+      <button className="calendar-button" type="button" onClick={prevMonth}><CaretLeftFill /></button>
       <button type="button" onClick={nextMonth}><CaretRightFill /></button>
-      {/* Feature to update your schedule */}
-      {/* <div className="labelStyle">
-        <h2>Update schedule</h2>
-        <input
-          type="text"
-          value={rawData}
-          onChange={handleInputChange}
-          maxLength={4}
-          placeholder="HH:MM"
-        />
-        {formatTime && (
-          <div>
-            Formatted Time:
-            {formatTime}
-          </div>
-        )}
-      </div> */}
       <div className="calendar-schedule">
-        <div className="calendar-container">
+        <div className="calendar-mini-container">
           <div className="calendar-section">
-
             <div className="grid-container">
               {calendar.map((item) => {
                 let monthType = 'prev';
@@ -203,12 +163,14 @@ function SchedulePage() {
           <h2>Schedules</h2>
           {selectedDate ? (
             <>
-              <h4>
+              <h5>
                 {months[selectedDate.month]}
+                {' '}
                 {selectedDate.day}
                 ,
+                {' '}
                 {selectedDate.year}
-              </h4>
+              </h5>
               <ul className="mt-3">
                 {(events[`${selectedDate.year}-${selectedDate.month + 1}-${selectedDate.day}`] || []).map(
                   (event) => (
@@ -229,7 +191,7 @@ function SchedulePage() {
           )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 

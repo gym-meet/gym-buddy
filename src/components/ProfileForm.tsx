@@ -166,7 +166,7 @@ export default function ProfileForm(): JSX.Element {
             </Form>
           </Col>
           <Col md={4} className="text-center">
-            <Image src="/image.png" alt="Profile" fluid className="logo w-50" />
+            <Image src="/image.png" alt="Profile" fluid className="logo2 w-50" />
           </Col>
         </Row>
       </section>
