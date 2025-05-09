@@ -1,5 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { FunnelFill } from 'react-bootstrap-icons';
+import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { ProfileCardData } from '@/lib/ProfileCardData';
 import TopMenu from '../../components/TopMenu';
@@ -53,14 +54,14 @@ const Explore = async () => {
         <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
           {users.length > 0 ? (
             users.map((profile) => (
-              <Col key={profile.id}>
-                <a
-                  href="/profile/$profile.id"
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <ProfileCard key={profile.id} profile={profile} />
-                </a>
-              </Col>
+              // Link dynamic ID for each profile
+              <Link
+                href={`/profile/${profile.id}`}
+                key={profile.id}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <ProfileCard key={profile.id} profile={profile} />
+              </Link>
             ))
           ) : (
             <Col>
